@@ -1,7 +1,15 @@
 package main
 
-import "github.com/wlf92/torch"
+import (
+	"fmt"
+
+	"github.com/wlf92/torch"
+)
 
 func main() {
-	torch.Hi()
+	gw := torch.NewGateway()
+	fmt.Println(gw.Name())
+
+	node := torch.NewNode()
+	fmt.Println(node.Name())
 }
