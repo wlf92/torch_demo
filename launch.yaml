@@ -1,0 +1,7 @@
+
+gate:
+  rpc_port: 12001
+
+node:
+  rpc_port: 13001
+  
