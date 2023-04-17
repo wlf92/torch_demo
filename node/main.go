@@ -12,6 +12,7 @@ func main() {
 	nd := torch.NewNode()
 	nd.SetRegistry(reg)
 	nd.AddRouteHandler(1, Hi)
+	nd.AddRouteHandler(2, Hi)
 
 	container := torch.NewContainer(nd)
 	container.Serve()
@@ -19,5 +20,5 @@ func main() {
 
 func Hi(p []byte) []byte {
 	log.Infow("????")
-	return nil
+	return []byte("12345")
 }
