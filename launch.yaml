@@ -1,7 +1,41 @@
-
 gate:
   rpc_port: 12001
+  ws_port: 8444
 
 node:
-  rpc_port: 13001
-  
+  - name: hall
+    rpc_port: 13001
+
+consul:
+  addr: "192.168.56.7:8500" # 客户端连接地址
+  healthCheck: true # 是否启用健康检查
+  healthCheckInterval: 5 # 健康检查间隔
+  healthCheckTimeout: 3 # 超时时间（秒）
+  heartbeatCheck: true # 心跳重试次数
+  heartbeatCheckInterval: 10 # 心跳重试间隔（秒）
+  deregisterCriticalServiceAfter: 10 # 心跳重试间隔（秒）
+
+sql:
+  - host: "42.193.159.90:3306"
+    username: "root"
+    password: "QJwTxeU0loHVkqln"
+    maxIdleConnections: 100 # MySQL 最大空闲连接数，默认 100
+    maxOpenConnections: 100 # MySQL 最大打开的连接数，默认 100
+    maxConnectionLifeTime: 10 # 空闲连接最大存活时间，默认 10s
+    logLevel: 1 # GORM log level, 1: silent, 2:error, 3:warn, 4:info
+    database: "main"
+  - host: "42.193.159.90:3306"
+    username: "root"
+    password: "QJwTxeU0loHVkqln"
+    maxIdleConnections: 100 # MySQL 最大空闲连接数，默认 100
+    maxOpenConnections: 100 # MySQL 最大打开的连接数，默认 100
+    maxConnectionLifeTime: 10 # 空闲连接最大存活时间，默认 10s
+    logLevel: 3 # GORM log level, 1: silent, 2:error, 3:warn, 4:info
+    database: "log"
+
+rds:
+  addrs: # 客户端连接地址
+    - "42.193.159.90:6379"
+  username: "" # 用户名
+  password: jfUnG7RzUqc33bT1 # 密码
+  maxRetries: 3 # 最大重试次数

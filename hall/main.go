@@ -9,7 +9,7 @@ import (
 func main() {
 	reg := consul.NewRegistry()
 
-	nd := torch.NewNode()
+	nd := torch.NewNode("hall")
 	nd.SetRegistry(reg)
 	nd.AddRouteHandler(1, Hi)
 	nd.AddRouteHandler(2, Hi)
@@ -18,7 +18,8 @@ func main() {
 	container.Serve()
 }
 
-func Hi(p []byte) []byte {
+func Hi(channel, area int32, uid int64, bts []byte) []byte {
 	log.Infow("????")
+
 	return []byte("12345")
 }
