@@ -1,0 +1,19 @@
+// protoc --go_out=. --go-grpc_out=. ./*.proto
+
+syntax = "proto3";
+
+option go_package = ".;pbrpc";
+
+package pbrpc;
+
+message BroadcastReq {
+    repeated int64 user_ids = 1; // 用户列表
+    uint32 msg_id = 2;
+    bytes datas = 3;
+}
+
+message BroadcastRsp {}
+
+service Gateway {
+    rpc Broadcast(BroadcastReq) returns (BroadcastRsp) {}
+}

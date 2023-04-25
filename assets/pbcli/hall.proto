@@ -1,0 +1,38 @@
+// protoc --go_out=. --go-grpc_out=. ./*.proto
+
+syntax = "proto3";
+
+option go_package = ".;pbcli";
+
+package pbcli;
+
+import "common.proto";
+
+enum LoginMode {
+    Token = 0; // 
+    Guest = 1; // 游客
+}
+  
+message LoginExtra {
+    string from_id = 1;
+    string ad_id = 2;
+    string device_id = 3;
+    string phone = 4;
+    string client_ver = 5;
+}
+  
+// 登录请求
+message LoginReq {
+    int32 channel_id = 1; // 渠道
+    int32 area_id = 2; // 区域
+    LoginMode kind = 3; // 登陆类型
+    string param_a = 4; // 参数a
+    string param_b = 5; // 参数b
+    LoginExtra extra = 15; // 额外信息（乱七八糟的参数往extra加，不要加到req中）
+}
+  
+// 登录响应
+message LoginRsp {
+    Result result = 1;
+    int64 user_id = 2;
+}

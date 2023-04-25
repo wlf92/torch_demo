@@ -21,7 +21,12 @@ func main() {
 	gw := torch.NewGateway()
 	gw.SetServer(server)
 	gw.SetRegistry(reg)
+	gw.SetRpcService(&pbrpc.Gateway_ServiceDesc, &Service{})
 
 	container := torch.NewContainer(gw)
 	container.Serve()
+}
+
+type Service struct {
+	pbrpc.UnimplementedGatewayServer
 }

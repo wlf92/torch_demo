@@ -1,0 +1,12 @@
+// protoc --go_out=. --go-grpc_out=. ./*.proto
+
+syntax = "proto3";
+
+option go_package = ".;pbcli";
+
+package pbcli;
+
+message Result {
+    optional int32 code = 1; // 错误码
+    optional string msg = 2; // 错误描述
+}
