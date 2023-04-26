@@ -6,6 +6,11 @@ option go_package = ".;pbcli";
 
 package pbcli;
 
-enum msg_id {
-    Nonsense = 0;
+
+// must: all rsp is req id+1, req is even, rsp is odd
+enum msg {
+    Id_Nonsense = 0;
+
+    Id_HeartBeatReq = 0x0002;
+    Id_LoginReq = 0x0004;
 }

@@ -1,7 +1,9 @@
 package main
 
 import (
+	"context"
 	"fmt"
+	"torch_demo/assets/pbrpc"
 
 	"github.com/wlf92/torch"
 	"github.com/wlf92/torch/network"
@@ -29,4 +31,8 @@ func main() {
 
 type Service struct {
 	pbrpc.UnimplementedGatewayServer
+}
+
+func (svc *Service) Broadcast(context.Context, *pbrpc.BroadcastReq) (*pbrpc.BroadcastRsp, error) {
+	return nil, nil
 }

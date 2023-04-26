@@ -4,6 +4,7 @@ import (
 	"bytes"
 	"encoding/binary"
 	"fmt"
+	"log"
 	"net/url"
 	"time"
 
@@ -29,9 +30,9 @@ func (wsc *Client) dial() {
 	fmt.Println("dial success")
 
 	go wsc.recvLoop()
-	go wsc.sendLoop()
+	go wsc.sendRoop()
 
-	wsc.send(1, []byte{})
+	wsc.send(4, []byte{})
 }
 
 func (wsc *Client) send(mid uint32, bts []byte) {
@@ -50,6 +51,8 @@ func (wsc *Client) pack(mid uint32, bts []byte) []byte {
 }
 
 func (wsc *Client) unpack(datas []byte) error {
+	fmt.Println(datas)
+
 	reader := bytes.NewReader(datas)
 
 	var length int16
@@ -69,22 +72,20 @@ func (wsc *Client) recvLoop() {
 		_, message, err := wsc.ccc.ReadMessage()
 		if err != nil {
 			if err.Error() != websocket.ErrReadLimit.Error() {
-				fmt.Println("read:", err)
+				log.Println("read:", err)
 			}
 			break
 		}
-
 		wsc.unpack(message)
 	}
 }
 
-func (wsc *Client) sendLoop() {
+func (wsc *Client) sendRoop() {
 	for {
 		msg := <-wsc.chsSend
-		fmt.Println("send", msg)
 		err := wsc.ccc.WriteMessage(websocket.BinaryMessage, msg)
 		if err != nil {
-			fmt.Println("write:", err)
+			log.Println("write:", err)
 			continue
 		}
 	}
