@@ -22,7 +22,8 @@ const _ = grpc.SupportPackageIsVersion7
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type GatewayClient interface {
-	Broadcast(ctx context.Context, in *BroadcastReq, opts ...grpc.CallOption) (*BroadcastRsp, error)
+	MultiSend(ctx context.Context, in *MultiSendReq, opts ...grpc.CallOption) (*Empty, error)
+	BindUser(ctx context.Context, in *BindUserReq, opts ...grpc.CallOption) (*Empty, error)
 }
 
 type gatewayClient struct {
@@ -33,9 +34,18 @@ func NewGatewayClient(cc grpc.ClientConnInterface) GatewayClient {
 	return &gatewayClient{cc}
 }
 
-func (c *gatewayClient) Broadcast(ctx context.Context, in *BroadcastReq, opts ...grpc.CallOption) (*BroadcastRsp, error) {
-	out := new(BroadcastRsp)
-	err := c.cc.Invoke(ctx, "/pbrpc.Gateway/Broadcast", in, out, opts...)
+func (c *gatewayClient) MultiSend(ctx context.Context, in *MultiSendReq, opts ...grpc.CallOption) (*Empty, error) {
+	out := new(Empty)
+	err := c.cc.Invoke(ctx, "/pbrpc.Gateway/MultiSend", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *gatewayClient) BindUser(ctx context.Context, in *BindUserReq, opts ...grpc.CallOption) (*Empty, error) {
+	out := new(Empty)
+	err := c.cc.Invoke(ctx, "/pbrpc.Gateway/BindUser", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -46,7 +56,8 @@ func (c *gatewayClient) Broadcast(ctx context.Context, in *BroadcastReq, opts ..
 // All implementations must embed UnimplementedGatewayServer
 // for forward compatibility
 type GatewayServer interface {
-	Broadcast(context.Context, *BroadcastReq) (*BroadcastRsp, error)
+	MultiSend(context.Context, *MultiSendReq) (*Empty, error)
+	BindUser(context.Context, *BindUserReq) (*Empty, error)
 	mustEmbedUnimplementedGatewayServer()
 }
 
@@ -54,8 +65,11 @@ type GatewayServer interface {
 type UnimplementedGatewayServer struct {
 }
 
-func (UnimplementedGatewayServer) Broadcast(context.Context, *BroadcastReq) (*BroadcastRsp, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method Broadcast not implemented")
+func (UnimplementedGatewayServer) MultiSend(context.Context, *MultiSendReq) (*Empty, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method MultiSend not implemented")
+}
+func (UnimplementedGatewayServer) BindUser(context.Context, *BindUserReq) (*Empty, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method BindUser not implemented")
 }
 func (UnimplementedGatewayServer) mustEmbedUnimplementedGatewayServer() {}
 
@@ -70,20 +84,38 @@ func RegisterGatewayServer(s grpc.ServiceRegistrar, srv GatewayServer) {
 	s.RegisterService(&Gateway_ServiceDesc, srv)
 }
 
-func _Gateway_Broadcast_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(BroadcastReq)
+func _Gateway_MultiSend_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(MultiSendReq)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(GatewayServer).Broadcast(ctx, in)
+		return srv.(GatewayServer).MultiSend(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/pbrpc.Gateway/Broadcast",
+		FullMethod: "/pbrpc.Gateway/MultiSend",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(GatewayServer).Broadcast(ctx, req.(*BroadcastReq))
+		return srv.(GatewayServer).MultiSend(ctx, req.(*MultiSendReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Gateway_BindUser_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(BindUserReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(GatewayServer).BindUser(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/pbrpc.Gateway/BindUser",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(GatewayServer).BindUser(ctx, req.(*BindUserReq))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -96,8 +128,12 @@ var Gateway_ServiceDesc = grpc.ServiceDesc{
 	HandlerType: (*GatewayServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
-			MethodName: "Broadcast",
-			Handler:    _Gateway_Broadcast_Handler,
+			MethodName: "MultiSend",
+			Handler:    _Gateway_MultiSend_Handler,
+		},
+		{
+			MethodName: "BindUser",
+			Handler:    _Gateway_BindUser_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

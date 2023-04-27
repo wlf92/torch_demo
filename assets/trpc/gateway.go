@@ -14,16 +14,30 @@ func getGateClient() (pbrpc.GatewayClient, error) {
 	return pbrpc.NewGatewayClient(cc), nil
 }
 
-func GateBroadcast(ctx context.Context, userIds []int64, msgId uint32, datas []byte) error {
+func GateMultiSend(ctx context.Context, userIds []int64, msgId uint32, datas []byte) error {
 	ct, err := getGateClient()
 	if err != nil {
 		return err
 	}
 
-	_, err = ct.Broadcast(ctx, &pbrpc.BroadcastReq{
+	_, err = ct.MultiSend(ctx, &pbrpc.MultiSendReq{
 		UserIds: userIds,
 		MsgId:   msgId,
 		Datas:   datas,
+	})
+
+	return err
+}
+
+func GateBindUser(ctx context.Context, connId, userId int64) error {
+	ct, err := getGateClient()
+	if err != nil {
+		return err
+	}
+
+	_, err = ct.BindUser(ctx, &pbrpc.BindUserReq{
+		ConnId: connId,
+		UserId: userId,
 	})
 
 	return err

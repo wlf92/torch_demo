@@ -22,18 +22,14 @@ const (
 	_ = protoimpl.EnforceVersion(protoimpl.MaxVersion - 20)
 )
 
-type BroadcastReq struct {
+type Empty struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
-
-	UserIds []int64 `protobuf:"varint,1,rep,packed,name=user_ids,json=userIds,proto3" json:"user_ids,omitempty"` // 用户列表
-	MsgId   uint32  `protobuf:"varint,2,opt,name=msg_id,json=msgId,proto3" json:"msg_id,omitempty"`
-	Datas   []byte  `protobuf:"bytes,3,opt,name=datas,proto3" json:"datas,omitempty"`
 }
 
-func (x *BroadcastReq) Reset() {
-	*x = BroadcastReq{}
+func (x *Empty) Reset() {
+	*x = Empty{}
 	if protoimpl.UnsafeEnabled {
 		mi := &file_gateway_proto_msgTypes[0]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -41,13 +37,13 @@ func (x *BroadcastReq) Reset() {
 	}
 }
 
-func (x *BroadcastReq) String() string {
+func (x *Empty) String() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
-func (*BroadcastReq) ProtoMessage() {}
+func (*Empty) ProtoMessage() {}
 
-func (x *BroadcastReq) ProtoReflect() protoreflect.Message {
+func (x *Empty) ProtoReflect() protoreflect.Message {
 	mi := &file_gateway_proto_msgTypes[0]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -59,40 +55,23 @@ func (x *BroadcastReq) ProtoReflect() protoreflect.Message {
 	return mi.MessageOf(x)
 }
 
-// Deprecated: Use BroadcastReq.ProtoReflect.Descriptor instead.
-func (*BroadcastReq) Descriptor() ([]byte, []int) {
+// Deprecated: Use Empty.ProtoReflect.Descriptor instead.
+func (*Empty) Descriptor() ([]byte, []int) {
 	return file_gateway_proto_rawDescGZIP(), []int{0}
 }
 
-func (x *BroadcastReq) GetUserIds() []int64 {
-	if x != nil {
-		return x.UserIds
-	}
-	return nil
-}
-
-func (x *BroadcastReq) GetMsgId() uint32 {
-	if x != nil {
-		return x.MsgId
-	}
-	return 0
-}
-
-func (x *BroadcastReq) GetDatas() []byte {
-	if x != nil {
-		return x.Datas
-	}
-	return nil
-}
-
-type BroadcastRsp struct {
+type MultiSendReq struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
+
+	UserIds []int64 `protobuf:"varint,1,rep,packed,name=user_ids,json=userIds,proto3" json:"user_ids,omitempty"` // 用户列表
+	MsgId   uint32  `protobuf:"varint,2,opt,name=msg_id,json=msgId,proto3" json:"msg_id,omitempty"`
+	Datas   []byte  `protobuf:"bytes,3,opt,name=datas,proto3" json:"datas,omitempty"`
 }
 
-func (x *BroadcastRsp) Reset() {
-	*x = BroadcastRsp{}
+func (x *MultiSendReq) Reset() {
+	*x = MultiSendReq{}
 	if protoimpl.UnsafeEnabled {
 		mi := &file_gateway_proto_msgTypes[1]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -100,13 +79,13 @@ func (x *BroadcastRsp) Reset() {
 	}
 }
 
-func (x *BroadcastRsp) String() string {
+func (x *MultiSendReq) String() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
-func (*BroadcastRsp) ProtoMessage() {}
+func (*MultiSendReq) ProtoMessage() {}
 
-func (x *BroadcastRsp) ProtoReflect() protoreflect.Message {
+func (x *MultiSendReq) ProtoReflect() protoreflect.Message {
 	mi := &file_gateway_proto_msgTypes[1]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -118,28 +97,110 @@ func (x *BroadcastRsp) ProtoReflect() protoreflect.Message {
 	return mi.MessageOf(x)
 }
 
-// Deprecated: Use BroadcastRsp.ProtoReflect.Descriptor instead.
-func (*BroadcastRsp) Descriptor() ([]byte, []int) {
+// Deprecated: Use MultiSendReq.ProtoReflect.Descriptor instead.
+func (*MultiSendReq) Descriptor() ([]byte, []int) {
 	return file_gateway_proto_rawDescGZIP(), []int{1}
+}
+
+func (x *MultiSendReq) GetUserIds() []int64 {
+	if x != nil {
+		return x.UserIds
+	}
+	return nil
+}
+
+func (x *MultiSendReq) GetMsgId() uint32 {
+	if x != nil {
+		return x.MsgId
+	}
+	return 0
+}
+
+func (x *MultiSendReq) GetDatas() []byte {
+	if x != nil {
+		return x.Datas
+	}
+	return nil
+}
+
+type BindUserReq struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	ConnId int64 `protobuf:"varint,1,opt,name=conn_id,json=connId,proto3" json:"conn_id,omitempty"`
+	UserId int64 `protobuf:"varint,2,opt,name=user_id,json=userId,proto3" json:"user_id,omitempty"`
+}
+
+func (x *BindUserReq) Reset() {
+	*x = BindUserReq{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_gateway_proto_msgTypes[2]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *BindUserReq) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*BindUserReq) ProtoMessage() {}
+
+func (x *BindUserReq) ProtoReflect() protoreflect.Message {
+	mi := &file_gateway_proto_msgTypes[2]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use BindUserReq.ProtoReflect.Descriptor instead.
+func (*BindUserReq) Descriptor() ([]byte, []int) {
+	return file_gateway_proto_rawDescGZIP(), []int{2}
+}
+
+func (x *BindUserReq) GetConnId() int64 {
+	if x != nil {
+		return x.ConnId
+	}
+	return 0
+}
+
+func (x *BindUserReq) GetUserId() int64 {
+	if x != nil {
+		return x.UserId
+	}
+	return 0
 }
 
 var File_gateway_proto protoreflect.FileDescriptor
 
 var file_gateway_proto_rawDesc = []byte{
 	0x0a, 0x0d, 0x67, 0x61, 0x74, 0x65, 0x77, 0x61, 0x79, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x12,
-	0x05, 0x70, 0x62, 0x72, 0x70, 0x63, 0x22, 0x56, 0x0a, 0x0c, 0x42, 0x72, 0x6f, 0x61, 0x64, 0x63,
-	0x61, 0x73, 0x74, 0x52, 0x65, 0x71, 0x12, 0x19, 0x0a, 0x08, 0x75, 0x73, 0x65, 0x72, 0x5f, 0x69,
-	0x64, 0x73, 0x18, 0x01, 0x20, 0x03, 0x28, 0x03, 0x52, 0x07, 0x75, 0x73, 0x65, 0x72, 0x49, 0x64,
-	0x73, 0x12, 0x15, 0x0a, 0x06, 0x6d, 0x73, 0x67, 0x5f, 0x69, 0x64, 0x18, 0x02, 0x20, 0x01, 0x28,
-	0x0d, 0x52, 0x05, 0x6d, 0x73, 0x67, 0x49, 0x64, 0x12, 0x14, 0x0a, 0x05, 0x64, 0x61, 0x74, 0x61,
-	0x73, 0x18, 0x03, 0x20, 0x01, 0x28, 0x0c, 0x52, 0x05, 0x64, 0x61, 0x74, 0x61, 0x73, 0x22, 0x0e,
-	0x0a, 0x0c, 0x42, 0x72, 0x6f, 0x61, 0x64, 0x63, 0x61, 0x73, 0x74, 0x52, 0x73, 0x70, 0x32, 0x42,
-	0x0a, 0x07, 0x47, 0x61, 0x74, 0x65, 0x77, 0x61, 0x79, 0x12, 0x37, 0x0a, 0x09, 0x42, 0x72, 0x6f,
-	0x61, 0x64, 0x63, 0x61, 0x73, 0x74, 0x12, 0x13, 0x2e, 0x70, 0x62, 0x72, 0x70, 0x63, 0x2e, 0x42,
-	0x72, 0x6f, 0x61, 0x64, 0x63, 0x61, 0x73, 0x74, 0x52, 0x65, 0x71, 0x1a, 0x13, 0x2e, 0x70, 0x62,
-	0x72, 0x70, 0x63, 0x2e, 0x42, 0x72, 0x6f, 0x61, 0x64, 0x63, 0x61, 0x73, 0x74, 0x52, 0x73, 0x70,
-	0x22, 0x00, 0x42, 0x09, 0x5a, 0x07, 0x2e, 0x3b, 0x70, 0x62, 0x72, 0x70, 0x63, 0x62, 0x06, 0x70,
-	0x72, 0x6f, 0x74, 0x6f, 0x33,
+	0x05, 0x70, 0x62, 0x72, 0x70, 0x63, 0x22, 0x07, 0x0a, 0x05, 0x45, 0x6d, 0x70, 0x74, 0x79, 0x22,
+	0x56, 0x0a, 0x0c, 0x4d, 0x75, 0x6c, 0x74, 0x69, 0x53, 0x65, 0x6e, 0x64, 0x52, 0x65, 0x71, 0x12,
+	0x19, 0x0a, 0x08, 0x75, 0x73, 0x65, 0x72, 0x5f, 0x69, 0x64, 0x73, 0x18, 0x01, 0x20, 0x03, 0x28,
+	0x03, 0x52, 0x07, 0x75, 0x73, 0x65, 0x72, 0x49, 0x64, 0x73, 0x12, 0x15, 0x0a, 0x06, 0x6d, 0x73,
+	0x67, 0x5f, 0x69, 0x64, 0x18, 0x02, 0x20, 0x01, 0x28, 0x0d, 0x52, 0x05, 0x6d, 0x73, 0x67, 0x49,
+	0x64, 0x12, 0x14, 0x0a, 0x05, 0x64, 0x61, 0x74, 0x61, 0x73, 0x18, 0x03, 0x20, 0x01, 0x28, 0x0c,
+	0x52, 0x05, 0x64, 0x61, 0x74, 0x61, 0x73, 0x22, 0x3f, 0x0a, 0x0b, 0x42, 0x69, 0x6e, 0x64, 0x55,
+	0x73, 0x65, 0x72, 0x52, 0x65, 0x71, 0x12, 0x17, 0x0a, 0x07, 0x63, 0x6f, 0x6e, 0x6e, 0x5f, 0x69,
+	0x64, 0x18, 0x01, 0x20, 0x01, 0x28, 0x03, 0x52, 0x06, 0x63, 0x6f, 0x6e, 0x6e, 0x49, 0x64, 0x12,
+	0x17, 0x0a, 0x07, 0x75, 0x73, 0x65, 0x72, 0x5f, 0x69, 0x64, 0x18, 0x02, 0x20, 0x01, 0x28, 0x03,
+	0x52, 0x06, 0x75, 0x73, 0x65, 0x72, 0x49, 0x64, 0x32, 0x6b, 0x0a, 0x07, 0x47, 0x61, 0x74, 0x65,
+	0x77, 0x61, 0x79, 0x12, 0x30, 0x0a, 0x09, 0x4d, 0x75, 0x6c, 0x74, 0x69, 0x53, 0x65, 0x6e, 0x64,
+	0x12, 0x13, 0x2e, 0x70, 0x62, 0x72, 0x70, 0x63, 0x2e, 0x4d, 0x75, 0x6c, 0x74, 0x69, 0x53, 0x65,
+	0x6e, 0x64, 0x52, 0x65, 0x71, 0x1a, 0x0c, 0x2e, 0x70, 0x62, 0x72, 0x70, 0x63, 0x2e, 0x45, 0x6d,
+	0x70, 0x74, 0x79, 0x22, 0x00, 0x12, 0x2e, 0x0a, 0x08, 0x42, 0x69, 0x6e, 0x64, 0x55, 0x73, 0x65,
+	0x72, 0x12, 0x12, 0x2e, 0x70, 0x62, 0x72, 0x70, 0x63, 0x2e, 0x42, 0x69, 0x6e, 0x64, 0x55, 0x73,
+	0x65, 0x72, 0x52, 0x65, 0x71, 0x1a, 0x0c, 0x2e, 0x70, 0x62, 0x72, 0x70, 0x63, 0x2e, 0x45, 0x6d,
+	0x70, 0x74, 0x79, 0x22, 0x00, 0x42, 0x09, 0x5a, 0x07, 0x2e, 0x3b, 0x70, 0x62, 0x72, 0x70, 0x63,
+	0x62, 0x06, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x33,
 }
 
 var (
@@ -154,16 +215,19 @@ func file_gateway_proto_rawDescGZIP() []byte {
 	return file_gateway_proto_rawDescData
 }
 
-var file_gateway_proto_msgTypes = make([]protoimpl.MessageInfo, 2)
+var file_gateway_proto_msgTypes = make([]protoimpl.MessageInfo, 3)
 var file_gateway_proto_goTypes = []interface{}{
-	(*BroadcastReq)(nil), // 0: pbrpc.BroadcastReq
-	(*BroadcastRsp)(nil), // 1: pbrpc.BroadcastRsp
+	(*Empty)(nil),        // 0: pbrpc.Empty
+	(*MultiSendReq)(nil), // 1: pbrpc.MultiSendReq
+	(*BindUserReq)(nil),  // 2: pbrpc.BindUserReq
 }
 var file_gateway_proto_depIdxs = []int32{
-	0, // 0: pbrpc.Gateway.Broadcast:input_type -> pbrpc.BroadcastReq
-	1, // 1: pbrpc.Gateway.Broadcast:output_type -> pbrpc.BroadcastRsp
-	1, // [1:2] is the sub-list for method output_type
-	0, // [0:1] is the sub-list for method input_type
+	1, // 0: pbrpc.Gateway.MultiSend:input_type -> pbrpc.MultiSendReq
+	2, // 1: pbrpc.Gateway.BindUser:input_type -> pbrpc.BindUserReq
+	0, // 2: pbrpc.Gateway.MultiSend:output_type -> pbrpc.Empty
+	0, // 3: pbrpc.Gateway.BindUser:output_type -> pbrpc.Empty
+	2, // [2:4] is the sub-list for method output_type
+	0, // [0:2] is the sub-list for method input_type
 	0, // [0:0] is the sub-list for extension type_name
 	0, // [0:0] is the sub-list for extension extendee
 	0, // [0:0] is the sub-list for field type_name
@@ -176,7 +240,7 @@ func file_gateway_proto_init() {
 	}
 	if !protoimpl.UnsafeEnabled {
 		file_gateway_proto_msgTypes[0].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*BroadcastReq); i {
+			switch v := v.(*Empty); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -188,7 +252,19 @@ func file_gateway_proto_init() {
 			}
 		}
 		file_gateway_proto_msgTypes[1].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*BroadcastRsp); i {
+			switch v := v.(*MultiSendReq); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_gateway_proto_msgTypes[2].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*BindUserReq); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -206,7 +282,7 @@ func file_gateway_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: file_gateway_proto_rawDesc,
 			NumEnums:      0,
-			NumMessages:   2,
+			NumMessages:   3,
 			NumExtensions: 0,
 			NumServices:   1,
 		},

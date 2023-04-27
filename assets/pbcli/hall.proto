@@ -28,6 +28,8 @@ message LoginReq {
     LoginMode kind = 3; // 登陆类型
     string param_a = 4; // 参数a
     string param_b = 5; // 参数b
+    int64 conn_id = 6; // 连接id
+
     LoginExtra extra = 15; // 额外信息（乱七八糟的参数往extra加，不要加到req中）
 }
   

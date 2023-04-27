@@ -13,4 +13,6 @@ enum msg {
 
     Id_HeartBeatReq = 0x0002;
     Id_LoginReq = 0x0004;
+
+    Id_ErrorNtf = 0xFFFF;
 }

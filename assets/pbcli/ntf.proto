@@ -6,7 +6,7 @@ option go_package = ".;pbcli";
 
 package pbcli;
 
-message Result {
+message ErrorNtf {
     int32 code = 1; // 错误码
     string msg = 2; // 错误描述
 }
