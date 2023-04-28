@@ -7,9 +7,9 @@ import (
 )
 
 func getGateClient() (pbrpc.GatewayClient, error) {
-	cc := NodeInstance.GetServiceClient("gateway")
-	if cc != nil {
-		return nil, fmt.Errorf("find service %s fail", "gateway")
+	cc := NodeInstance.GetServiceClient("gate")
+	if cc == nil {
+		return nil, fmt.Errorf("find service %s fail", "gate")
 	}
 	return pbrpc.NewGatewayClient(cc), nil
 }

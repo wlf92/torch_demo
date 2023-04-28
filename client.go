@@ -43,6 +43,11 @@ func (wsc *Client) dial() {
 	go wsc.sendRoop()
 
 	wsc.chsSend <- LoginReq()
+
+	time.Sleep(time.Second)
+
+	wsc.chsSend <- LoginReq()
+	wsc.chsSend <- LoginReq()
 }
 
 func (wsc *Client) unpack(datas []byte) error {
@@ -72,7 +77,6 @@ func (wsc *Client) recvLoop() {
 			break
 		}
 		wsc.unpack(message)
-		wsc.chsSend <- LoginReq()
 	}
 }
 
