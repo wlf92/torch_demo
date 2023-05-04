@@ -1,9 +1,5 @@
 package trpc
 
-import "google.golang.org/grpc"
+import "github.com/wlf92/torch/cluster/node"
 
-type ISelector interface {
-	GetServiceClient(alias string) *grpc.ClientConn
-}
-
-var NodeInstance ISelector
+var NodeProxy node.IProxy

@@ -46,12 +46,11 @@ func (wsc *Client) dial() {
 
 	time.Sleep(time.Second)
 
-	wsc.chsSend <- LoginReq()
-	wsc.chsSend <- LoginReq()
 }
 
 func (wsc *Client) unpack(datas []byte) error {
 	atomic.AddInt32(&finishCount, 1)
+	wsc.chsSend <- LoginReq()
 
 	// reader := bytes.NewReader(datas)
 

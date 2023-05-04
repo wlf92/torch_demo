@@ -17,7 +17,7 @@ func main() {
 	nd.SetRegistry(reg)
 	nd.AddRouteHandler(uint32(pbcli.Msg_Id_LoginReq), entry.LoginReq)
 
-	trpc.NodeInstance = nd
+	trpc.NodeProxy = nd
 
 	container := torch.NewContainer(nd)
 	container.Serve()

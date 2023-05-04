@@ -6,31 +6,32 @@ import (
 	"torch_demo/assets/pbrpc"
 )
 
-func getGateClient() (pbrpc.GatewayClient, error) {
-	cc := NodeInstance.GetServiceClient("gate")
+func getGateClient(insId string) (pbrpc.GatewayClient, error) {
+	cc := NodeProxy.GetGateClient(insId)
 	if cc == nil {
-		return nil, fmt.Errorf("find service %s fail", "gate")
+		return nil, fmt.Errorf("find service %s fail", insId)
 	}
 	return pbrpc.NewGatewayClient(cc), nil
 }
 
 func GateMultiSend(ctx context.Context, userIds []int64, msgId uint32, datas []byte) error {
-	ct, err := getGateClient()
-	if err != nil {
-		return err
-	}
+	// ct, err := getGateClient()
+	// if err != nil {
+	// 	return err
+	// }
 
-	_, err = ct.MultiSend(ctx, &pbrpc.MultiSendReq{
-		UserIds: userIds,
-		MsgId:   msgId,
-		Datas:   datas,
-	})
+	// _, err = ct.MultiSend(ctx, &pbrpc.MultiSendReq{
+	// 	UserIds: userIds,
+	// 	MsgId:   msgId,
+	// 	Datas:   datas,
+	// })
 
-	return err
+	// return err
+	return nil
 }
 
-func GateBindUser(ctx context.Context, connId, userId int64) error {
-	ct, err := getGateClient()
+func GateBindUser(ctx context.Context, insId string, connId, userId int64) error {
+	ct, err := getGateClient(insId)
 	if err != nil {
 		return err
 	}
