@@ -8,18 +8,11 @@ package pbrpc;
 
 message Empty {}
 
-message MultiSendReq {
-    repeated int64 user_ids = 1; // 用户列表
-    uint32 msg_id = 2;
-    bytes datas = 3;
-}
-
 message BindUserReq {
     int64 conn_id = 1;
     int64 user_id = 2;
 }
 
 service Gateway {
-    rpc MultiSend(MultiSendReq) returns (Empty) {}
     rpc BindUser(BindUserReq) returns (Empty) {}
 }
