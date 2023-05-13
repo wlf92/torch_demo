@@ -7,7 +7,7 @@ node:
     rpc_port: 13001
 
 consul:
-  addr: "192.168.56.7:8500" # 客户端连接地址
+  addr: "localhost:8500" # 客户端连接地址
   healthCheck: true # 是否启用健康检查
   healthCheckInterval: 5 # 健康检查间隔
   healthCheckTimeout: 3 # 超时时间（秒）

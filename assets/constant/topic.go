@@ -1,3 +1,3 @@
 package constant
 
-var TopicBroadcast string = "TopicBroadcast"
+var TopicBroadcast string = "Topic:Broadcast"

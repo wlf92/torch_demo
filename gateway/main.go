@@ -27,8 +27,8 @@ func main() {
 		panic("create redis fail")
 	}
 	mq.Default = mqredis.Create(context.Background(), redisClient)
-	mq.Default.Subscribe(constant.TopicBroadcast, "", func(message []byte) error {
-		fmt.Println(string(message))
+	mq.Default.Subscribe(constant.TopicBroadcast, "", func(body []byte) error {
+		fmt.Println(body)
 		return nil
 	})
 
